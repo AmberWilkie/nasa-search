@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import { Input, Button } from 'reactstrap';
+import './index.css';
 import './App.css';
 
 class App extends Component {
   state = {
     query: '',
     results: [],
-    noResults: ''
+    noResults: '',
+    saved: []
   }
 
   handleChange = e => {
@@ -18,7 +21,6 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state.query);
     this.requestFromNASA();
   }
   
@@ -26,7 +28,6 @@ class App extends Component {
     fetch(`https://images-api.nasa.gov/search?q=${this.state.query}`)
     .then( resp => resp.json())
     .then ( resp => {
-      console.log(typeof(resp.collection.items.slice(0, 20)));
       if (resp.collection.items.length > 0) {
         this.setState({
           results: resp.collection.items.slice(0, 20),
@@ -40,23 +41,34 @@ class App extends Component {
     })
   }
 
+  handleSave = (item) => {
+    this.setState( state => {
+      return {
+        saved: state.saved.concat(item)
+      }
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <div className="App-header">
           <h2>Nasa Search</h2>
         </div>
-        <div className="App-intro">
+        <div className="search-box">
           <form onSubmit={this.handleSubmit}>
           <Input value={this.state.query} placeholder='Search NASA' onChange={this.handleChange} />
           </form>
         </div>
         <div className="results">
+          {this.state.saved && <div>{this.state.saved.length} items saved</div>}
           {this.state.results && this.state.results.map( result => (
-            <div>
+            <div key={result.href}>
               <h3>{result.data[0].title}</h3>
               <p>{result.data[0].description}</p>
-              <img src={result.links[0].href} width="300px"/>
+              <img src={result.links[0].href} className="nasaImage"/>
+              <br />
+              <Button color="success" onClick={() => this.handleSave(result)}>Save</Button>
               <hr />
             </div>
           ))}

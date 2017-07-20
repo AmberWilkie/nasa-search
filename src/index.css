@@ -6,6 +6,19 @@ body {
 
 .results {
   max-width: 60%;
+  display: block;
+  padding-top: 30px;
+  text-align: center;
+  margin: auto;
+}
+
+.search-box {
   display: inline-block;
   padding-top: 30px;
+  max-width: 60%;
+}
+
+.nasaImage {
+  width: 300px;
+  margin-bottom: 5px;
 }
