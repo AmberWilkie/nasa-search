@@ -13,7 +13,7 @@ export const requestFromNASA = (query) => {
         if (resp.collection.items.length > 0) {
           dispatch({
             type: 'SAVE_SEARCH_RESULTS',
-            payload: resp.collection.items
+            payload: resp.collection.items.slice(0, 10)
           })
         } else {
           dispatch({

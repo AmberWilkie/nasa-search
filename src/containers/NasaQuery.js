@@ -34,13 +34,14 @@ class NasaQuery extends Component {
 
   componentDidMount() {
     console.log(this.props.saved);
-    if (localStorage.getItem('results')){
-      this.props.setSavedFromStorage(JSON.parse(localStorage.getItem('results')));
-    }
+    // if (localStorage.getItem('results')){
+      // this.props.setSavedFromStorage(JSON.parse(localStorage.getItem('results')));
+    // }
   }
 
   render() {
     const {
+      deleteItem,
       saved,
       results,
       noResults
@@ -52,7 +53,7 @@ class NasaQuery extends Component {
 
         {saved && <div>{saved.length} items saved</div>}
 
-        <ResultsList results={results} noResults={noResults} saved={saved} handleSave={this.handleSave} />
+        <ResultsList results={results} noResults={noResults} saved={saved} handleDelete={deleteItem} handleSave={this.handleSave} />
       </div>
     );
   }

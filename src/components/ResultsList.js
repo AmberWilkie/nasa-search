@@ -13,7 +13,9 @@ const ResultsList = (props) => {
   return (
     <div className="results">
       {results && results.map( result => {
-        const alreadyAdded = saved.find(item => item === result);
+        console.log(result);
+        let alreadyAdded = saved.includes(result);
+        console.log('alreadyAdded: ', alreadyAdded);
         return (
           <div key={result.href}>
             <h3>{result.data[0].title}</h3>

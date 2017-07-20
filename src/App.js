@@ -40,7 +40,8 @@ const NasaApp = (props) => {
         { page === 'saved' && <a href='/home' onClick={handleSavedLink}>Home</a> }
       </div>
       {page === 'home' && <NasaQuery 
-        addNasaItem={addNasaItem} 
+        addNasaItem={addNasaItem}
+        handleDelete={deleteItem}
         searchNasa={searchNasa}
         results={results}
         noResults={noResults}
