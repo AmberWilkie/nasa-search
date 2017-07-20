@@ -48,16 +48,22 @@ const nasaActions = (state = initialState, action) => {
       break;
     case 'SAVE_SEARCH_RESULTS':
       console.log('saving results');
+      localStorage.setItem('results', JSON.stringify(action.payload));
       return {
         ...state,
         results: action.payload
       }
-      break;
     case 'NO_RESULTS':
       return {
         ...state,
         results: [],
         noResults: `Your search for ${action.payload} returned no results`
+      }
+    case 'SET_FROM_STORAGE':
+      console.log('setting from storage');      
+      return {
+        ...state,
+        results: JSON.parse(localStorage.getItem('results'))
       }
     default:
       console.log('running default NasaItems case');

@@ -6,6 +6,10 @@ import ResultsList from '../components/ResultsList';
 import QueryBox from '../components/QueryBox';
 
 class NasaQuery extends Component {
+  constructor(props) {
+    super(props);
+  };
+  
   state = {
     query: '',
     results: [],
@@ -27,23 +31,28 @@ class NasaQuery extends Component {
   handleSave = (item) => {
     this.props.addNasaItem(item);
   }
-  
+
+  componentDidMount() {
+    console.log(this.props.saved);
+    if (localStorage.getItem('results')){
+      this.props.setSavedFromStorage(JSON.parse(localStorage.getItem('results')));
+    }
+  }
+
   render() {
-      const {
-    saved
-  } = this.props; 
+    const {
+      saved,
+      results,
+      noResults
+    } = this.props; 
 
     return (
       <div>
-        <div className="App-header">
-          <h2>Nasa Search</h2>
-        </div>
-
         <QueryBox handleChange={this.handleChange} handleSubmit={this.handleSubmit} query={this.state.query}/>
 
         {saved && <div>{saved.length} items saved</div>}
 
-        <ResultsList results={this.props.results} noResults={this.props.noResults} saved={saved} handleSave={this.handleSave} />
+        <ResultsList results={results} noResults={noResults} saved={saved} handleSave={this.handleSave} />
       </div>
     );
   }

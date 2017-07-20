@@ -13,6 +13,7 @@ const NasaApp = (props) => {
   const {
     addNasaItem,
     searchNasa,
+    setSavedFromStorage,
     results,
     noResults,
     saved,
@@ -21,11 +22,15 @@ const NasaApp = (props) => {
 
   return (
     <div className="App">
+      <div className="App-header">
+        <h2>Nasa Search</h2>
+      </div>
       <NasaQuery 
         addNasaItem={addNasaItem} 
         searchNasa={searchNasa}
         results={results}
         noResults={noResults}
+        setSavedFromStorage={setSavedFromStorage}
         saved={saved}/>
     </div>
   );
@@ -50,6 +55,12 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     searchNasa: (query) => {
       dispatch(requestFromNASA(query))
+    },
+    setSavedFromStorage: (results) => {
+      console.log('from App: ', results);
+      dispatch({
+        type: 'SET_FROM_STORAGE'
+      })
     }
   }
 }
