@@ -6,7 +6,9 @@ const ResultsList = (props) => {
     results,
     noResults,
     saved,
-    handleSave
+    handleSave,
+    handleDelete,
+    page
   } = props;
   return (
     <div className="results">
@@ -19,7 +21,7 @@ const ResultsList = (props) => {
             <img src={result.links[0].href} className="nasaImage"/>
             <br />
             { alreadyAdded ?
-              <Button color="warning">Saved</Button> :
+              <div><Button color="warning">Saved</Button> <Button color="danger" onClick={() => handleDelete(result)}>Delete</Button></div> :
               <Button color="success" onClick={() => handleSave(result)}>Save</Button>
             }
             <hr />

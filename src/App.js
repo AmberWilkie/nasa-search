@@ -18,6 +18,7 @@ const NasaApp = (props) => {
     searchNasa,
     setSavedFromStorage,
     changePage,
+    deleteItem,
     results,
     noResults,
     saved,
@@ -49,7 +50,7 @@ const NasaApp = (props) => {
       { page === 'saved' && 
           <div>
             <ResultsList
-              results={saved} saved={saved} handleSave={() => {console.log('trying to save')}}
+              results={saved} page={page} saved={saved} handleDelete={deleteItem} handleSave={() => {console.log('trying to save')}}
             />
           </div> }
     </div>
@@ -71,6 +72,12 @@ const mapDispatchToProps = (dispatch, props) => {
     addNasaItem: (item) => {
       dispatch({
         type: 'ADD_ITEM',
+        payload: item
+      })
+    },
+    deleteItem: (item) => {
+      dispatch({
+        type: 'DELETE_ITEM',
         payload: item
       })
     },

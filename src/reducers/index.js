@@ -34,9 +34,16 @@ const nasaActions = (state = initialState, action) => {
         saved: state.saved.concat(action.payload)
       }
       break;
-    case 'REMOVE_ITEM':
+    case 'DELETE_ITEM':
       console.log('removing: ', action.payload);
-      break;
+      const index = state.saved.indexOf(action.payload);
+      return {
+        ...state,
+        saved: [
+          ...state.saved.slice(0, index),
+          ...state.saved.slice(index+1)
+        ]
+      }
     case 'SEARCH_NASA':
       let results = [];
       console.log('getting items');
