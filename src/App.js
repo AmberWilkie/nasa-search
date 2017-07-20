@@ -1,8 +1,43 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Input, Button } from 'reactstrap';
+
 import './index.css';
 import './App.css';
+
+import { createStore } from 'redux'
+
+const initialState = {
+  saved: []
+}
+
+const nasaItems = (state = initialState, action) => {
+  console.log(state);
+  console.log(action);
+  switch(action.type) {
+    case 'ADD_ITEM':
+      console.log(action.payload);
+      return {
+        ...state,
+        saved: state.saved.concat(action.payload)
+      }
+      break;
+    case 'REMOVE_ITEM':
+      console.log('removing: ', action.payload);
+      break;
+    case 'GET_ITEMS':
+      console.log('getting items');
+      break;
+    default:
+      console.log('running default NasaItems case');
+  }
+}
+
+const store = createStore(nasaItems);
+
+store.subscribe(() =>
+  console.log(store.getState())
+)
 
 class App extends Component {
   state = {
@@ -43,6 +78,10 @@ class App extends Component {
 
   handleSave = (item) => {
     this.setState( state => {
+      store.dispatch({
+        type: 'ADD_ITEM',
+        payload: item
+      })
       return {
         saved: state.saved.concat(item)
       }
