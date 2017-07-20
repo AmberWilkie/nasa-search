@@ -27,7 +27,12 @@ class NasaQuery extends Component {
   handleSave = (item) => {
     this.props.addNasaItem(item);
   }
+  
   render() {
+      const {
+    saved
+  } = this.props; 
+
     return (
       <div>
         <div className="App-header">
@@ -36,9 +41,9 @@ class NasaQuery extends Component {
 
         <QueryBox handleChange={this.handleChange} handleSubmit={this.handleSubmit} query={this.state.query}/>
 
-        {this.props.saved && <div>{this.props.saved.length} items saved</div>}
+        {saved && <div>{saved.length} items saved</div>}
 
-        <ResultsList results={this.props.results} noResults={this.props.noResults} handleSave={this.handleSave} />
+        <ResultsList results={this.props.results} noResults={this.props.noResults} saved={saved} handleSave={this.handleSave} />
       </div>
     );
   }
