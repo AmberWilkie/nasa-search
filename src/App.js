@@ -9,39 +9,60 @@ import './index.css';
 import NasaQuery from './containers/NasaQuery';
 import { requestFromNASA } from './reducers';
 
+import ResultsList from './components/ResultsList';
+
+
 const NasaApp = (props) => {
   const {
     addNasaItem,
     searchNasa,
     setSavedFromStorage,
+    changePage,
     results,
     noResults,
     saved,
+    page,
   } = props;
   console.log(props);
+
+  const handleSavedLink = (e) => {
+    e.preventDefault();
+    console.log(e.target.href);
+    changePage(e.target.href.replace('http://localhost:3000/', ''));
+  }
 
   return (
     <div className="App">
       <div className="App-header">
         <h2>Nasa Search</h2>
+        { page === 'home' && <a href='/saved' onClick={handleSavedLink}>View Saved</a> }
+        { page === 'saved' && <a href='/home' onClick={handleSavedLink}>Home</a> }
       </div>
-      <NasaQuery 
+      {page === 'home' && <NasaQuery 
         addNasaItem={addNasaItem} 
         searchNasa={searchNasa}
         results={results}
         noResults={noResults}
         setSavedFromStorage={setSavedFromStorage}
         saved={saved}/>
+      }
+      { page === 'saved' && 
+          <div>
+            <ResultsList
+              results={saved} saved={saved} handleSave={() => {console.log('trying to save')}}
+            />
+          </div> }
     </div>
   );
 }
 
-const mapStateToProps = (state = {saved: []}, props) => {
+const mapStateToProps = (state = {saved: [], page: 'home'}, props) => {
   console.log(props);
   return {
     results: state.results,
     saved: state.saved,
-    noResults: state.noResults
+    noResults: state.noResults,
+    page: state.page,
   }
 }
 
@@ -60,6 +81,12 @@ const mapDispatchToProps = (dispatch, props) => {
       console.log('from App: ', results);
       dispatch({
         type: 'SET_FROM_STORAGE'
+      })
+    },
+    changePage: (page) => {
+      dispatch({
+        type: 'CHANGE_PAGE',
+        payload: page
       })
     }
   }

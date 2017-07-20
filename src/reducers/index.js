@@ -1,7 +1,8 @@
 const initialState = {
   saved: [],
   results: [],
-  noResults: ''
+  noResults: '',
+  page: 'home'
 }
 
 export const requestFromNASA = (query) => {
@@ -10,11 +11,6 @@ export const requestFromNASA = (query) => {
       .then( resp => resp.json())
       .then ( resp => {
         if (resp.collection.items.length > 0) {
-          console.log('obtained collection');
-          // this.setState({
-          // results: resp.collection.items.slice(0, 20),
-          // noResults: ''
-          // })
           dispatch({
             type: 'SAVE_SEARCH_RESULTS',
             payload: resp.collection.items
@@ -64,6 +60,11 @@ const nasaActions = (state = initialState, action) => {
       return {
         ...state,
         results: JSON.parse(localStorage.getItem('results'))
+      }
+    case 'CHANGE_PAGE':
+      return {
+        ...state,
+        page: action.payload
       }
     default:
       console.log('running default NasaItems case');
