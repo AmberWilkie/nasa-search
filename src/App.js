@@ -1,16 +1,15 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Input, Button } from 'reactstrap';
 import { connect } from 'react-redux'
 
 import './App.css';
 import './index.css';
 
 import NasaQuery from './containers/NasaQuery';
-import { requestFromNASA } from './reducers';
 
 import ResultsList from './components/ResultsList';
 
+import { requestFromNASA } from './reducers/nasaItemManagement';
 
 const NasaApp = (props) => {
   const {
@@ -28,7 +27,6 @@ const NasaApp = (props) => {
 
   const handleSavedLink = (e) => {
     e.preventDefault();
-    console.log(e.target.href);
     changePage(e.target.href.replace('http://localhost:3000/', ''));
   }
 

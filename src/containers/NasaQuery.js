@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import { Input, Button } from 'reactstrap';
-import { connect } from 'react-redux'
 
 import ResultsList from '../components/ResultsList';
 import QueryBox from '../components/QueryBox';
 
-class NasaQuery extends Component {
-  constructor(props) {
-    super(props);
-  };
-  
+class NasaQuery extends Component {  
   state = {
     query: '',
     results: [],
@@ -41,7 +35,7 @@ class NasaQuery extends Component {
 
   render() {
     const {
-      deleteItem,
+      handleDelete,
       saved,
       results,
       noResults
@@ -53,7 +47,7 @@ class NasaQuery extends Component {
 
         {saved && <div>{saved.length} items saved</div>}
 
-        <ResultsList results={results} noResults={noResults} saved={saved} handleDelete={deleteItem} handleSave={this.handleSave} />
+        <ResultsList results={results} noResults={noResults} saved={saved} handleDelete={handleDelete} handleSave={this.handleSave} />
       </div>
     );
   }
