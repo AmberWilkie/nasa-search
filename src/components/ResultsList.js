@@ -17,7 +17,7 @@ const ResultsList = (props) => {
 
   return (
     <div className="results">
-      {results && results.reverse().map( result => {
+      {results && results.map( result => {
         const alreadyAdded = saved.filter( item => item.data[0].nasa_id === result.data[0].nasa_id);
         return (
           <div key={result.data[0].nasa_id}>

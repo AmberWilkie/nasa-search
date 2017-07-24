@@ -54,7 +54,6 @@ const resultsReducer = (state = [], action) => {
       requestFromNASA(action.payload)()
       break;
     case 'SAVE_SEARCH_RESULTS':
-      localStorage.setItem('results', JSON.stringify(action.payload));
       return [...action.payload]
     default:
       return state
