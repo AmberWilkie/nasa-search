@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import './App.css';
 import './index.css';
@@ -66,13 +67,15 @@ const mapStateToProps = (state = {}, props) => {
     isFetching: state.isFetching,
   }
 }
-const mapDispatchToProps = dispatch => ({
-  addNasaItem: item => dispatch(actions.addNasaItem(item)),
-  deleteItem: item => dispatch(actions.deleteItem(item)),
-  searchNasa: query => dispatch(actions.requestFromNASA(query)),
-  setSavedFromStorage: () => dispatch(actions.setSavedFromStorage),
-  changePage: page => dispatch(actions.changePage(page)),
-})
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    addNasaItem: actions.addNasaItem,
+    deleteItem: actions.deleteItem,
+    searchNasa: actions.requestFromNASA,
+    setSavedFromStorage: actions.setSavedFromStorage,
+    changePage: actions.changePage
+  }, dispatch)
+}
 
 const App = connect(
   mapStateToProps,
