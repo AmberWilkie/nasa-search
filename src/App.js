@@ -9,7 +9,7 @@ import NasaQuery from './containers/NasaQuery';
 
 import ResultsList from './components/ResultsList';
 
-import { requestFromNASA } from './reducers/nasaItemManagement';
+import * as actions from './actions';
 
 const NasaApp = (props) => {
   const {
@@ -66,38 +66,13 @@ const mapStateToProps = (state = {}, props) => {
     isFetching: state.isFetching,
   }
 }
-
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    addNasaItem: (item) => {
-      dispatch({
-        type: 'ADD_ITEM',
-        payload: item
-      })
-    },
-    deleteItem: (item) => {
-      dispatch({
-        type: 'DELETE_ITEM',
-        payload: item
-      })
-    },
-    // Still need to figure out how to dispatch a regular action here.
-    searchNasa: (query) => {
-      dispatch(requestFromNASA(query))
-    },
-    setSavedFromStorage: (results) => {
-      dispatch({
-        type: 'SET_FROM_STORAGE'
-      })
-    },
-    changePage: (page) => {
-      dispatch({
-        type: 'CHANGE_PAGE',
-        payload: page
-      })
-    }
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  addNasaItem: item => dispatch(actions.addNasaItem(item)),
+  deleteItem: item => dispatch(actions.deleteItem(item)),
+  searchNasa: query => dispatch(actions.requestFromNASA(query)),
+  setSavedFromStorage: () => dispatch(actions.setSavedFromStorage),
+  changePage: page => dispatch(actions.changePage(page)),
+})
 
 const App = connect(
   mapStateToProps,

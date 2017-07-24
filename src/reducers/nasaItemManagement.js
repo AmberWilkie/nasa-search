@@ -2,19 +2,15 @@ const savedReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_ITEM':
       let newState = state.concat(action.payload);
-      try {
-        localStorage.setItem('saved', JSON.stringify(newState)); }
-      catch (err) { console.log(err) }
+      saveInLocalStorage('saved', newState);
       return newState;
     case 'DELETE_ITEM':
       const index = state.indexOf(action.payload);
       newState = [
-          ...state.slice(0, index),
-          ...state.slice(index+1)
-        ];
-      try {
-        localStorage.setItem('saved', JSON.stringify(newState));
-      } catch (err) { console.log(err) }
+        ...state.slice(0, index),
+        ...state.slice(index+1)
+      ];
+      saveInLocalStorage('saved', newState);
       return newState;  
     default:
       try {
@@ -29,26 +25,12 @@ const savedReducer = (state = [], action) => {
   }
 }
 
-const requestFromNASA = query => dispatch => {
-  dispatch({
-    type: 'SEARCH_NASA'
-  })
-  return fetch(`https://images-api.nasa.gov/search?q=${query}`)
-    .then( resp => resp.json())
-    .then ( resp => {
-      if (resp.collection.items.length > 0) {
-        dispatch({
-          type: 'SAVE_SEARCH_RESULTS',
-          payload: resp.collection.items.slice(0, 10)
-        })
-      } else {
-        dispatch({
-          type: 'NO_RESULTS',
-          payload: query
-        })
-      }
-    })
+const saveInLocalStorage = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (err) { console.log(err) }
 }
+
 
 const resultsReducer = (state = {}, action) => {
   switch(action.type) {
@@ -89,4 +71,4 @@ const isFetchingReducer = (state = false, action) => {
   }
 }
 
-export { savedReducer, resultsReducer, requestFromNASA, navigationReducer, isFetchingReducer };
+export { savedReducer, resultsReducer, navigationReducer, isFetchingReducer };
