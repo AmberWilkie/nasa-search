@@ -57,7 +57,7 @@ const NasaApp = (props) => {
   );
 }
 
-const mapStateToProps = (state = {saved: [], page: 'home'}, props) => {
+const mapStateToProps = (state = {}, props) => {
   return {
     results: state.results.returnedResults,
     saved: state.saved,
@@ -81,6 +81,7 @@ const mapDispatchToProps = (dispatch, props) => {
         payload: item
       })
     },
+    // Still need to figure out how to dispatch a regular action here.
     searchNasa: (query) => {
       dispatch(requestFromNASA(query))
     },
