@@ -3,15 +3,15 @@ import { combineReducers } from 'redux'
 import { 
   savedReducer, 
   resultsReducer, 
-  noResultsReducer,
   navigationReducer,
+  isFetchingReducer,
 } from './nasaItemManagement';
 
 const nasaActions = combineReducers({
   results: resultsReducer,
   page: navigationReducer,
   saved: savedReducer,
-  noResults: noResultsReducer,
+  isFetching: isFetchingReducer,
 })
 
 export { nasaActions };

@@ -22,6 +22,7 @@ const NasaApp = (props) => {
     noResults,
     saved,
     page,
+    isFetching,
   } = props;
 
   const handleSavedLink = (e) => {
@@ -42,6 +43,7 @@ const NasaApp = (props) => {
         searchNasa={searchNasa}
         results={results}
         noResults={noResults}
+        isFetching={isFetching}
         setSavedFromStorage={setSavedFromStorage}
         saved={saved}/>
       }
@@ -57,10 +59,11 @@ const NasaApp = (props) => {
 
 const mapStateToProps = (state = {saved: [], page: 'home'}, props) => {
   return {
-    results: state.results,
+    results: state.results.returnedResults,
     saved: state.saved,
-    noResults: state.noResults,
+    noResults: state.results.noResults,
     page: state.page,
+    isFetching: state.isFetching,
   }
 }
 

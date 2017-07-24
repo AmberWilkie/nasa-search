@@ -38,7 +38,8 @@ class NasaQuery extends Component {
       handleDelete,
       saved,
       results,
-      noResults
+      noResults,
+      isFetching,
     } = this.props; 
 
     return (
@@ -47,7 +48,7 @@ class NasaQuery extends Component {
 
         {saved && <div>{saved.length} items saved</div>}
 
-        <ResultsList results={results} noResults={noResults} saved={saved} handleDelete={handleDelete} handleSave={this.handleSave} />
+        <ResultsList results={results} noResults={noResults} saved={saved} handleDelete={handleDelete} handleSave={this.handleSave} isFetching={isFetching} />
       </div>
     );
   }
