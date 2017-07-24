@@ -4,9 +4,7 @@ import {
   savedReducer, 
   resultsReducer, 
   noResultsReducer,
-  requestFromNASA, 
   navigationReducer,
-
 } from './nasaItemManagement';
 
 const nasaActions = combineReducers({

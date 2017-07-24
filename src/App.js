@@ -23,7 +23,6 @@ const NasaApp = (props) => {
     saved,
     page,
   } = props;
-  console.log(props);
 
   const handleSavedLink = (e) => {
     e.preventDefault();
@@ -57,7 +56,6 @@ const NasaApp = (props) => {
 }
 
 const mapStateToProps = (state = {saved: [], page: 'home'}, props) => {
-  console.log(props);
   return {
     results: state.results,
     saved: state.saved,
@@ -84,7 +82,6 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch(requestFromNASA(query))
     },
     setSavedFromStorage: (results) => {
-      console.log('from App: ', results);
       dispatch({
         type: 'SET_FROM_STORAGE'
       })

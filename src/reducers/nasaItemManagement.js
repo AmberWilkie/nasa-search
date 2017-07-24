@@ -1,15 +1,29 @@
 const savedReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_ITEM':
-      return state.concat(action.payload)
+      let newState = state.concat(action.payload);
+      try {
+        localStorage.setItem('saved', JSON.stringify(newState)); }
+      catch (err) { console.log(err) }
+      return newState;
     case 'DELETE_ITEM':
       const index = state.indexOf(action.payload);
-      return [
+      newState = [
           ...state.slice(0, index),
           ...state.slice(index+1)
         ]
-    default: 
-      return state
+      try {
+        localStorage.setItem('saved', JSON.stringify(newState));
+      } catch (err) { console.log(err) }
+      return newState;  
+    default:
+      try {
+        return JSON.parse(localStorage.getItem('saved'));
+      }
+      catch (err) {
+        console.log('something wrong with localstorage: ', err);
+        return state;
+      }
   }
 }
 
