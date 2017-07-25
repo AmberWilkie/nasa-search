@@ -71,7 +71,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({
     addNasaItem: actions.addNasaItem,
     deleteItem: actions.deleteItem,
-    searchNasa: actions.requestFromNASA,
+    searchNasa: actions.searchNASA,
     setSavedFromStorage: actions.setSavedFromStorage,
     changePage: actions.changePage
   }, dispatch)

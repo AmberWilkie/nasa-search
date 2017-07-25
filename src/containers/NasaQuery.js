@@ -6,8 +6,6 @@ import QueryBox from '../components/QueryBox';
 class NasaQuery extends Component {  
   state = {
     query: '',
-    results: [],
-    noResults: '',
   }
 
   handleChange = e => {
@@ -19,20 +17,16 @@ class NasaQuery extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    this.setState({
+      query: ''
+    })
     this.props.searchNasa(this.state.query);
   }
   
   handleSave = (item) => {
     this.props.addNasaItem(item);
   }
-
-  componentDidMount() {
-    console.log(this.props.saved);
-    // if (localStorage.getItem('results')){
-      // this.props.setSavedFromStorage(JSON.parse(localStorage.getItem('results')));
-    // }
-  }
-
+  
   render() {
     const {
       handleDelete,

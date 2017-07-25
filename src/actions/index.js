@@ -1,4 +1,4 @@
-const requestFromNASA = query => dispatch => {
+const searchNASA = query => dispatch => {
   dispatch({
     type: 'SEARCH_NASA'
   })
@@ -46,5 +46,5 @@ const changePage = page => dispatch => {
   })
 }
 
-export { addNasaItem, deleteItem, requestFromNASA, setSavedFromStorage, changePage };
+export { addNasaItem, deleteItem, searchNASA, setSavedFromStorage, changePage };
 
